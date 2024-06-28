@@ -56,9 +56,6 @@ class BookController extends BaseController
 
     public function listBooksApi()
     {
-        $decoded = $this->decodedToken();
-        $userId = $decoded->user_id;
-
         // Get the category ID from the request
         $categoryId = $this->request->getVar('category');
 
@@ -82,15 +79,7 @@ class BookController extends BaseController
 
         // Loop through each book
         foreach ($books as $book) {
-            // Fetch reviews for the current book
-            $collection = $this->collectionModel
-                ->where("user_id", $userId)
-                ->where("book_id", $book["book_id"])
-                ->first();
-            $statusCollection = boolval($collection);
-
             $reviews = $this->reviewModel
-                ->join('users', 'users.user_id = reviews.user_id')
                 ->where(['book_id' => $book['book_id']])
                 ->findAll();
 
@@ -99,9 +88,6 @@ class BookController extends BaseController
             foreach ($reviews as $review) {
                 $totalRating += (int)$review['rating'];
                 $responseReview[] = [
-                    'review_id' => $review['review_id'],
-                    'user_name' => $review['user_name'],
-                    'review' => $review['review'],
                     'rating' => (int)$review['rating'],
                 ];
             }
@@ -109,10 +95,7 @@ class BookController extends BaseController
             $averageRating = count($reviews) > 0 ? $totalRating / count($reviews) : 0;
 
             $responseData[] = array_merge($book, [
-                'collection_id' => $collection ? (int)$collection["collection_id"] : null,
-                'is_save' => $statusCollection,
                 'rating' => round($averageRating, 1),
-                'reviews' => $responseReview
             ]);
         }
 

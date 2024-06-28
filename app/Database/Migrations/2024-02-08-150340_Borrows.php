@@ -50,6 +50,11 @@ class Borrows extends Migration
                 'constraint' => 50,
                 'null' => true,
             ],
+            'proof_of_payment' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+                'null' => true,
+            ],
             'created_at' => [
                 'type'    => 'TIMESTAMP',
                 'default' => new RawSql('CURRENT_TIMESTAMP'),

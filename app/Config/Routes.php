@@ -44,24 +44,25 @@ $routes->post('/register/submit', 'AuthController::registerAuth');
 $routes->get('/logout', 'AuthController::logout');
 
 // API
-$routes->group("", ['filter' => 'cors'], function ($routes) {
-  $routes->post('/api/login', 'AuthController::loginApi');
-  $routes->post('/api/register', 'AuthController::registerApi');
-  $routes->get('/api/books', 'BookController::listBooksApi', ['filter' => 'authFilter']);
-  $routes->get('/api/popular-books', 'BookController::getPopularBooks', ['filter' => 'authFilter']);
-  $routes->get('/api/books/(:num)', 'BookController::detailBookApi/$1', ['filter' => 'authFilter']);
-  $routes->get('/api/category', 'CategoryController::categoryApi', ['filter' => 'authFilter']);
-  $routes->get('/api/profile', 'AuthController::profileAPi', ['filter' => 'authFilter']);
-  $routes->post('/api/profile/update', 'AuthController::updateProfileApi', ['filter' => 'authFilter']);
-  $routes->get('/api/total-fine', 'BorrowingController::getTotalFineApi', ['filter' => 'authFilter']);
-  $routes->get('/api/borrowing', 'BorrowingController::listBorrowingApi', ['filter' => 'authFilter']);
-  $routes->post('/api/borrowing', 'BorrowingController::postBorrowingBook', ['filter' => 'authFilter']);
-  $routes->post('/api/return', 'BorrowingController::postReturnBook', ['filter' => 'authFilter']);
-  $routes->post('/api/review', 'ReviewController::submitReviewApi', ['filter' => 'authFilter']);
-  $routes->get('/api/collections', 'CollectionController::index', ['filter' => 'authFilter']);
-  $routes->post('/api/collections', 'CollectionController::createCollection', ['filter' => 'authFilter']);
-  $routes->delete('/api/collections/delete/(:num)', 'CollectionController::deleteCollection/$1', ['filter' => 'authFilter']);
+$routes->group('/api', function ($routes) {
+  $routes->post('login', 'AuthController::loginApi');
+  $routes->post('register', 'AuthController::registerApi');
+  $routes->get('books', 'BookController::listBooksApi');
+  $routes->get('popular-books', 'BookController::getPopularBooks');
+  $routes->get('books/(:num)', 'BookController::detailBookApi/$1');
+  $routes->get('category', 'CategoryController::categoryApi');
+  $routes->get('profile', 'AuthController::profileApi', ['filter' => 'authFilter']);
+  $routes->post('profile/update', 'AuthController::updateProfileApi', ['filter' => 'authFilter']);
+  $routes->get('total-fine', 'BorrowingController::getTotalFineApi', ['filter' => 'authFilter']);
+  $routes->get('borrowing', 'BorrowingController::listBorrowingApi', ['filter' => 'authFilter']);
+  $routes->post('borrowing', 'BorrowingController::postBorrowingBook', ['filter' => 'authFilter']);
+  $routes->post('return', 'BorrowingController::postReturnBook', ['filter' => 'authFilter']);
+  $routes->post('review', 'ReviewController::submitReviewApi', ['filter' => 'authFilter']);
+  $routes->get('collections', 'CollectionController::index', ['filter' => 'authFilter']);
+  $routes->post('collections', 'CollectionController::createCollection', ['filter' => 'authFilter']);
+  $routes->delete('collections/delete/(:num)', 'CollectionController::deleteCollection/$1', ['filter' => 'authFilter']);
 });
+
 
 // MVC
 $routes->group('', ['filter' => 'authGuard'], function ($routes) {
