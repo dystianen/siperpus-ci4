@@ -51,7 +51,7 @@
 
     <li class="nav-item">
       <a class="nav-link" href="report">
-        <span>Generate Report</span></a>
+        <span>Report</span></a>
     </li>
   <?php endif; ?>
 </ul>
