@@ -294,7 +294,6 @@ class BorrowingController extends BaseController
                 $totalFine = 0;
             } else {
                 $totalFine = $daysDifference * 1000;
-                dd($totalFine);
             }
 
             $response[] = array_merge($d, ['total_fine' => $totalFine]);
@@ -313,7 +312,7 @@ class BorrowingController extends BaseController
         $decoded = $this->decodedToken();
         $bookId = $this->request->getVar('book_id');
         $loanDate = date('Y/m/d');
-        $dueDate = date('Y/m/d', strtotime($loanDate . ' +3 days'));
+        $dueDate = date('Y/m/d', strtotime($loanDate . ' +30 days'));
 
         $currentBook = $this->bookModel->where("book_id", $bookId)->first();
         $remainingStock = $currentBook["stock"];

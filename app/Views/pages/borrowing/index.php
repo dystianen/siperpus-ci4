@@ -87,7 +87,7 @@
           </div>
           <div class="modal-footer" style="justify-content: center; gap: 16px">
             <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">No</button>
-            <form class="d-inline" method="put" action="<?= base_url(); ?>/borrowing/update/<?= $d['borrow_id'] ?>/borrowed/borrowing">
+            <form class="d-inline" method="POST" action="<?= base_url(); ?>/borrowing/update/<?= $d['borrow_id'] ?>/borrowed/borrowing">
               <button type="submit" class="btn btn-primary">Yes</button>
             </form>
           </div>
@@ -119,17 +119,17 @@
       if (i === <?= $pager["currentPage"] ?>) {
         pageItem.classList.add('active');
       }
-  
+
       var pageLink = document.createElement('a');
       pageLink.classList.add('page-link');
       pageLink.href = 'javascript:void(0);'
       pageLink.textContent = i;
-  
+
       pageLink.addEventListener('click', function() {
         var pageNumber = parseInt(this.textContent);
         handlePagination(pageNumber);
       });
-  
+
       pageItem.appendChild(pageLink);
       paginationContainer.appendChild(pageItem);
     }
