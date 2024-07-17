@@ -19,6 +19,7 @@
             <th>Loan Date</th>
             <th>Due Date</th>
             <th>Total Fine</th>
+            <th>Proof of payment</th>
             <th>Status</th>
             <th>Confirmation</th>
           </tr>
@@ -33,6 +34,13 @@
               <td><?= date_format(date_create($d['loan_date']), 'd/m/Y') ?></td>
               <td><?= date_format(date_create($d['due_date']), 'd/m/Y') ?></td>
               <td><?= 'Rp ' . number_format($d['total_fine'], 0, ',', '.') ?></td>
+              <td>
+                <?php if (isset($d['proof_of_payment'])) : ?>
+                  <img src="<?= base_url($d['proof_of_payment']) ?>" width="200px" height="auto" data-bs-toggle="modal" data-bs-target="#photoModal<?= $d['borrow_id'] ?>" style="cursor: pointer;" />
+                <?php else : ?>
+                  <span>-</span>
+                <?php endif; ?>
+              </td>
               <td>
                 <?php if ($d['status'] === 'done') : ?>
                   <?php if ($d['updated_at'] > $d['due_date']) : ?>
@@ -66,6 +74,26 @@
   </div>
 </div>
 
+<!-- modal photo -->
+<?php foreach ($data as $d) : ?>
+  <div class="modal fade" id="photoModal<?= $d['borrow_id'] ?>" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body d-flex flex-column justify-content-center text-center">
+          <div class="text-body-modal">
+            <?php if ($d['proof_of_payment'] != null) : ?>
+              <img src="<?= base_url($d['proof_of_payment']) ?>" width="500px" height="auto" />
+            <?php endif; ?>
+          </div>
+          <div class="modal-footer" style="justify-content: center; gap: 16px">
+            <button class="btn btn-secondary" data-bs-target="#photoModal<?= $d['borrow_id'] ?>" data-bs-toggle="modal">Oke</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>
+
 <!-- modal confirm -->
 <?php foreach ($data as $d) : ?>
   <div class="modal fade" id="confirmModal<?= $d['borrow_id'] ?>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -76,11 +104,11 @@
             <i class="fa-solid fa-circle-exclamation"></i>
           </div>
           <div class="text-body-modal">
-            Are you sure want to confirm this data?
+            Are you sure you want to confirm this data?
           </div>
           <div class="modal-footer" style="justify-content: center; gap: 16px">
-            <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">No</button>
-            <form class="d-inline" method="put" action="<?= base_url(); ?>/borrowing/update/<?= $d['borrow_id'] ?>/done/return">
+            <button class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <form class="d-inline" method="post" action="<?= base_url(); ?>borrowing/update/<?= $d['borrow_id'] ?>/done/return">
               <button type="submit" class="btn btn-primary">Yes</button>
             </form>
           </div>

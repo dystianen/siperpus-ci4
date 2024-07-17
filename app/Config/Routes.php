@@ -44,7 +44,7 @@ $routes->post('/register/submit', 'AuthController::registerAuth');
 $routes->get('/logout', 'AuthController::logout');
 
 // API
-$routes->group('/api', function ($routes) {
+$routes->group('/api', ['filter' => 'cors'], function ($routes) {
   $routes->post('login', 'AuthController::loginApi');
   $routes->post('register', 'AuthController::registerApi');
   $routes->get('books', 'BookController::listBooksApi');
@@ -81,7 +81,7 @@ $routes->group('', ['filter' => 'authGuard'], function ($routes) {
 
   // BORROWING
   $routes->get('/borrowing', 'BorrowingController::borrowingView');
-  $routes->get('/borrowing/update/(:num)/(:any)/(:any)', 'BorrowingController::updateBorrowingStatus/$1/$2/$3');
+  $routes->post('/borrowing/update/(:num)/(:any)/(:any)', 'BorrowingController::updateBorrowingStatus/$1/$2/$3');
   $routes->get('/return', 'BorrowingController::returnView');
 
   // PETUGAS

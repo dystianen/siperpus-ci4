@@ -18,6 +18,7 @@ class BorrowingController extends BaseController
     {
         $this->borrowModel = new BorrowModel();
         $this->bookModel = new BookModel();
+        helper(['form', 'url']);
     }
 
     public function borrowingView()
@@ -293,6 +294,7 @@ class BorrowingController extends BaseController
                 $totalFine = 0;
             } else {
                 $totalFine = $daysDifference * 1000;
+                dd($totalFine);
             }
 
             $response[] = array_merge($d, ['total_fine' => $totalFine]);
@@ -360,14 +362,24 @@ class BorrowingController extends BaseController
         $currentBook = $this->bookModel->where("book_id", $bookId)->first();
         $remainingStock = $currentBook["stock"];
 
+        // Upload image
+        $file = $this->request->getFile('proof_of_payment');
+        if ($file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move('assets/books/', $newName);
+            $filePath = '/assets/books/' . $newName;
+        } else {
+            return $this->fail($file->getErrorString());
+        }
         $loanDate = date('Y/m/d');
-        $dueDate = date('Y/m/d', strtotime($loanDate . ' +3 days'));
+        $dueDate = date('Y/m/d', strtotime($loanDate . ' +30 days'));
         $data = [
             'user_id' => $decoded->user_id,
             'book_id' => $currentBook['book_id'],
             'loan_date' => $loanDate,
             'due_date' => $dueDate,
             'status' => 'process_return',
+            'proof_of_payment' => $filePath,
             'deleted_at' => null,
         ];
 

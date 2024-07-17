@@ -12,7 +12,7 @@ class BorrowModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'book_id', 'confirm_by', 'loan_date', 'due_date', 'status', 'updated_at', 'created_at', 'updated_at', 'deleted_at'];
+    protected $allowedFields    = ['user_id', 'book_id', 'confirm_by', 'loan_date', 'due_date', 'status', 'proof_of_payment', 'created_at', 'updated_at', 'deleted_at'];
 
     protected bool $allowEmptyInserts = false;
 

@@ -22,6 +22,7 @@
             <th>Due Date</th>
             <th>Title</th>
             <th>Total Payment</th>
+            <th>Proof of payment</th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +35,13 @@
               <td><?= date_format(date_create($d['due_date']), 'd/m/Y') ?></td>
               <td><?= $d['title'] ?></td>
               <td><?= 'Rp ' . number_format($d['total_fine'], 0, ',', '.') ?></td>
+              <td>
+                <?php if (isset($d['proof_of_payment'])) : ?>
+                  <img src="<?= base_url($d['proof_of_payment']) ?>" width="200px" height="auto" data-bs-toggle="modal" data-bs-target="#photoModal<?= $d['borrow_id'] ?>" style="cursor: pointer;" />
+                <?php else : ?>
+                  <span>-</span>
+                <?php endif; ?>
+              </td>
             </tr>
           <?php endforeach; ?>
         </tbody>
