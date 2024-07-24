@@ -355,21 +355,24 @@ class BorrowingController extends BaseController
     public function postReturnBook()
     {
         $decoded = $this->decodedToken();
-        $borrowId =  $this->request->getVar('borrow_id');
-        $currentBook = $this->borrowModel->where("borrow_id", $borrowId)->first();
-        $bookId = $currentBook['book_id'];
+        $borrowId = $this->request->getVar('borrow_id');
+        $currentBorrow = $this->borrowModel->where("borrow_id", $borrowId)->first();
+        $bookId = $currentBorrow['book_id'];
         $currentBook = $this->bookModel->where("book_id", $bookId)->first();
         $remainingStock = $currentBook["stock"];
 
-        // Upload image
+        $filePath = null;
+
+        // Upload image if provided
         $file = $this->request->getFile('proof_of_payment');
-        if ($file->isValid() && !$file->hasMoved()) {
+        if ($file && $file->isValid() && !$file->hasMoved()) {
             $newName = $file->getRandomName();
             $file->move('assets/books/', $newName);
             $filePath = '/assets/books/' . $newName;
-        } else {
+        } else if ($file && !$file->isValid()) {
             return $this->fail($file->getErrorString());
         }
+
         $loanDate = date('Y/m/d');
         $dueDate = date('Y/m/d', strtotime($loanDate . ' +30 days'));
         $data = [
@@ -392,11 +395,12 @@ class BorrowingController extends BaseController
 
         $response = [
             "status" => 200,
-            'message' => 'Return Book Succesfully!',
+            'message' => 'Return Book Successfully!',
         ];
 
         return $this->respond($response, 200);
     }
+
 
     public function getTotalFineApi()
     {
