@@ -373,13 +373,9 @@ class BorrowingController extends BaseController
             return $this->fail($file->getErrorString());
         }
 
-        $loanDate = date('Y/m/d');
-        $dueDate = date('Y/m/d', strtotime($loanDate . ' +30 days'));
         $data = [
             'user_id' => $decoded->user_id,
             'book_id' => $currentBook['book_id'],
-            'loan_date' => $loanDate,
-            'due_date' => $dueDate,
             'status' => 'process_return',
             'proof_of_payment' => $filePath,
             'deleted_at' => null,
