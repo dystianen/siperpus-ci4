@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary-admin sidebar sidebar-dark accordion py-4" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+  <a class="sidebar-brand d-flex align-items-center" href="#">
     <h2 class="text-white">siperpus</h2>
   </a>
 

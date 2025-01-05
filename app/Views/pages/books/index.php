@@ -9,10 +9,10 @@
   <!--begin::Tables Widget 9-->
   <div class="mb-5 mb-xl-8">
     <!-- begin::Header -->
-    <div class="card-header border-0 pt-5">
-      <div class="card-toolbar mb-4" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a user">
+    <div class="card-header border-0">
+      <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a user">
         <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-          <i class="ki-outline ki-plus fs-2 justify-content-right"></i>Add Book Data +</a>
+          Add Book Data +</a>
       </div>
       <?php if (session()->getFlashData('failed')) : ?>
         <div class="alert alert-danger" role="alert">
@@ -43,7 +43,6 @@
               <th>Publisher</th>
               <th style="width: 150px;">Year Publication</th>
               <th>Stock</th>
-              <th style="width: 400px;">Synopsis</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -59,7 +58,6 @@
                 <td><?= $d["publisher"] ?></td>
                 <td><?= $d["year_publication"] ?></td>
                 <td><?= $d["stock"] ?></td>
-                <td><?= $d["synopsis"] ?></td>
                 <td>
                   <div>
                     <i class="fas fa-edit" title="Edit" data-bs-toggle="modal" data-bs-target="#editModal<?= $d['book_id'] ?>"></i>
@@ -123,9 +121,9 @@
                   <textarea required name="synopsis" class="form-control" id="synopsis" rows="3" aria-describedby="synopsis"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="synopsis" class="form-label">Stock</label>
-                    <input required name="stock" type="number" class="form-control form-control-user" id="stock" aria-describedby="stock">
-                  </div>
+                  <label for="synopsis" class="form-label">Stock</label>
+                  <input required name="stock" type="number" class="form-control form-control-user" id="stock" aria-describedby="stock">
+                </div>
                 <div class="form-group">
                   <label for="thumbnail" class="form-label">Add Photo</label>
                   <input required name="thumbnail" type="file" class="form-control form-control-user" id="thumbnail" aria-describedby="thumbnail">
@@ -211,7 +209,7 @@
                 <form class="d-inline" method="post" action="<?= base_url(); ?>/books/delete/<?= $d['book_id'] ?>">
                   <button type="submit" class="btn btn-primary">Yes</button>
                 </form>
-                <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">No</button>
+                <button class="btn btn-secondary" data-bs-target="#deleteModal<?= $d['book_id'] ?>" data-bs-toggle="modal">No</button>
               </div>
             </div>
           </div>

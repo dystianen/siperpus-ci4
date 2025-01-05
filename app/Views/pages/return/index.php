@@ -107,7 +107,7 @@
             Are you sure you want to confirm this data?
           </div>
           <div class="modal-footer" style="justify-content: center; gap: 16px">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button class="btn btn-secondary" data-bs-target="#confirmModal<?= $d['borrow_id'] ?>" data-bs-dismiss="modal">No</button>
             <form class="d-inline" method="post" action="<?= base_url(); ?>borrowing/update/<?= $d['borrow_id'] ?>/done/return">
               <button type="submit" class="btn btn-primary">Yes</button>
             </form>

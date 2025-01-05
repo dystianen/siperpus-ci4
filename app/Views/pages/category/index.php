@@ -8,10 +8,10 @@
   <!--begin::Tables Widget 9-->
   <div class="mb-5 mb-xl-8">
     <!-- begin::Header -->
-    <div class="card-header border-0 pt-5">
-      <div class="card-toolbar mb-4" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a user">
+    <div class="card-header border-0">
+      <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a user">
         <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-          <i class="ki-outline ki-plus fs-2 justify-content-right"></i>Add Book Category +</a>
+          Add Book Category +</a>
       </div>
       <?php if (session()->getFlashData('failed')) : ?>
         <div class="alert alert-danger" role="alert">

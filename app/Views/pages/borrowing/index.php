@@ -86,7 +86,7 @@
             Are you sure want to confirm this data?
           </div>
           <div class="modal-footer" style="justify-content: center; gap: 16px">
-            <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">No</button>
+            <button class="btn btn-secondary" data-bs-target="#confirmModal<?= $d['borrow_id'] ?>" data-bs-toggle="modal">No</button>
             <form class="d-inline" method="POST" action="<?= base_url(); ?>/borrowing/update/<?= $d['borrow_id'] ?>/borrowed/borrowing">
               <button type="submit" class="btn btn-primary">Yes</button>
             </form>
