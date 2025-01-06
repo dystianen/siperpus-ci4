@@ -17,7 +17,7 @@
             <th>Username</th>
             <th>Title</th>
             <th>Date</th>
-            <th>Proof of Payment</th>
+            <th>Total Fine</th>
             <th>Confirmed By</th>
           </tr>
         </thead>
@@ -30,7 +30,7 @@
               <td><?= $d['title'] ?></td>
               <td><?= date_format(date_create($d['updated_at']), 'd/m/Y') ?></td>
               <td><?= 'Rp ' . number_format($d['total_fine'], 0, ',', '.') ?></td>
-              <td><?= $d['confirm_by']?></td>
+              <td><?= $d['confirm_by'] ?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>
